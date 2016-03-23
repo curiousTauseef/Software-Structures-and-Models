@@ -1,0 +1,16 @@
+Hi,
+
+Exam 1 is on Mon 21st Mar 9:15 - 9:55 in auditorium Vaara. Topics covered in the exam are:
+
+Slides in Documents / Android folder: session01.pdf - session03.pdf and
+
+http://developer.android.com/guide/components/fundamentals.html
+
+http://developer.android.com/guide/components/activities.html
+
+http://developer.android.com/guide/topics/resources/layout-resource.html
+
+
+Slides in Documents / UML folder: ULM_slides_1.pdf
+
+Slides in Documents / Data Structures folder: Lectures / Lecture01.pdf

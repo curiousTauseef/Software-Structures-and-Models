@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Courselab05</string>
+    <string name="edit_text">Paavo</string>
+    <string name="radio1">human</string>
+    <string name="radio2">other animal</string>
+    <string name="radio3">robot</string>
+    <string name="add_button">ADD</string>
+    <string name="clear_button">CLEAR</string>
+    <string name="status_message">status message</string>
+    <string name="menu_save">menu_save</string>
+    <string name="menu_archive">menu_archive</string>
+    <string name="menu_delete">menu_delete</string>
+</resources>

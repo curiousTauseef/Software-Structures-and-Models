@@ -43,7 +43,9 @@ public class simpleList<T extends Comparable<T>> {
         if (count < MAX) {
             int index = 0;
             if (array[index] != null) {
-                while (item.compareTo(array[index]) > 0) {
+                // System.out.println(item);
+                // System.out.println(array[index]);
+                while (array[index] != null && item.compareTo(array[index]) > 0) {
                     index++;
                 }
                 for (int i = count - 1; i >= index; i--) {
@@ -51,6 +53,8 @@ public class simpleList<T extends Comparable<T>> {
                 }
             }
             array[index] = item;
+            // System.out.println("index:" + index);
+            // System.out.println(array[index]);
             count++;
             return true;
         } else {

@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Lab15-16</string>
+    <string name="new_player">Create New Player</string>
+    <string name="new_id">Enter New Player ID</string>
+    <string name="new_name">Enter New Player Name</string>
+    <string name="CreateBtn">Create New Player</string>
+</resources>

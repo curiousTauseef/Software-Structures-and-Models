@@ -18,7 +18,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".XML_Result"></activity>
+        <activity android:name=".XML_Result" />
+        <activity android:name=".AddPlayerActivity" />
+
+        <service
+            android:name=".SyncService"
+            android:enabled="true"
+            android:exported="true"></service>
     </application>
 
 </manifest>

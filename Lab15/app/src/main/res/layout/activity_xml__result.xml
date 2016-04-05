@@ -7,19 +7,11 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.wontheone.lab13.MainActivity">
+    tools:context="com.example.wontheone.lab13.XML_Result">
 
-    <Button
+    <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/mandatory"
-        android:text="Mandatory"/>
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/extra"
-        android:layout_below="@id/mandatory"
-        android:text="Extra"/>
-
+        android:id="@+id/listView" />
+    
 </RelativeLayout>

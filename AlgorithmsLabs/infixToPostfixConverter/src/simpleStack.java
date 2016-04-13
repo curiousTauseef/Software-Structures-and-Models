@@ -1,14 +1,15 @@
 
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-
-public class simpleStack<T extends Comparable<T>> {
+public class SimpleStack<T extends Comparable<T>> {
 
     private static final int MAXN = 10;
     private int top;
     private T[] array;
 
-    public simpleStack() {
+    public SimpleStack() {
         top = -1;
         array = (T[]) new Comparable[MAXN];
     }
@@ -37,52 +38,62 @@ public class simpleStack<T extends Comparable<T>> {
     }
 
     public static void main(String[] args) {
-        simpleStack<Character> operandStack = new simpleStack();
-        simpleStack<Character> operatorStack = new simpleStack();
-        Character item;
-        String infixEquation = "";
-
         System.out.println("Infix to postfix converter:\n");
         System.out.println("Give an infix equation at one line");
         Scanner scanner = new Scanner(System.in);
-        try {
-            infixEquation = scanner.nextLine();
-            for (int index = 0; index < string1.length();
-index++) {
-     char aChar = string1.charAt(index);
-}
-            // repeat until Q is entered
-            while (item.compareTo(new Character('Q')) != 0) {
-                if (item.compareTo(new Character('+')) == 0
-                        || item.compareTo(new Character('-')) == 0) {
-                    operatorStack.push(item);
-                    System.out.println("operator pushed");
-                    // operatorStack.print();
-                } else if (item.compareTo(new Character('=')) == 0) {
-                    int result = 0;
-                    if (operatorStack.pop().compareTo(new Character('+')) == 0) {
-                        result = (Integer.parseInt(operandStack.pop().toString())
-                                + Integer.parseInt(operandStack.pop().toString()));
-                    } else if (operatorStack.pop().compareTo(new Character('-')) == 0) {
-                        result = (Integer.parseInt(operandStack.pop().toString())
-                                - Integer.parseInt(operandStack.pop().toString()));
-                    }
-                    System.out.println("top value is " + result);
-                    operandStack.push(new Character((char) result));
-                } else if (item.compareTo(new Character('\n')) == 0){
-                } else {
-                    operandStack.push(item);
-                    System.out.println("operand pushed");
-                    // operandStack.print();
-                }
-                item = new Character((char) System.in.read());
-            }
-            System.out.print("stack contained: ");
-            operandStack.print();
-            System.out.println();
-            System.out.println();
-        } catch (Exception e) {
-            System.out.println("Exception " + e);
-        }
+        String input = scanner.nextLine();
+        InfixToPostfix infixToPostfix = new InfixToPostfix(input);
+        String output = infixToPostfix.convert();
+        System.out.println("Equivalent postfix equation is " + output);
+        RPN_Calculator rpnCal = new RPN_Calculator();
+        System.out.println("And it's value is " + rpnCal.evaluatepostfix(output));
     }
+
+//    public static void main(String[] args) {
+//        SimpleStack<Character> operatorStack = new SimpleStack();
+//
+//        String infixEquation = "";
+//        String postfixEquation = "";
+//
+//        System.out.println("Infix to postfix converter:\n");
+//        System.out.println("Give an infix equation at one line");
+//        Scanner scanner = new Scanner(System.in);
+//        Pattern NUM_PATTERN = Pattern.compile("\\d");
+//        Pattern PRIORITY_OPERATOR_PATTERN = Pattern.compile("(\\*|/)");
+//        Pattern NON_PRIORITY_OPERATOR_PATTERN = Pattern.compile("(\\+|-)");  // pattern = Pattern.compile("[az]$", Pattern.MULTILINE | Pattern.UNIX_LINES);
+//
+//        infixEquation = scanner.nextLine();
+//        for (int index = 0; index < infixEquation.length(); index++) {
+//            // Convert char to string
+//            String aChar = "" + infixEquation.charAt(index);
+//            System.out.println(aChar);
+//            if (NUM_PATTERN.matcher(aChar).find()) {
+//                postfixEquation += aChar;
+//                System.out.println(aChar + " is Number");
+//            } else if (PRIORITY_OPERATOR_PATTERN.matcher(aChar).find()) {
+//                System.out.println(aChar + " is priority operator");
+//                operatorStack.push(aChar.toCharArray()[0]);
+//            } else if (NON_PRIORITY_OPERATOR_PATTERN.matcher(aChar).find()) {
+//                Character c = operatorStack.pop();
+//                
+//                while (c != null) {
+//                    if (PRIORITY_OPERATOR_PATTERN.matcher(""+c).find()){
+//                        postfixEquation += c;
+//                        c = operatorStack.pop();
+//                    } else {
+//                        operatorStack.push(c);
+//                        break;
+//                    }
+//                }
+//                System.out.println(aChar + " is non-priority operator");
+//                operatorStack.push(aChar.toCharArray()[0]);
+//            }
+//        }
+//        Character c = operatorStack.pop();
+//        while (c != null) {
+//            postfixEquation += c;
+//            c = operatorStack.pop();
+//        }
+//        System.out.println("Equivalent postfix equation is " + postfixEquation);
+//    }
 }

@@ -101,7 +101,7 @@ public class simpleList<T extends Comparable<T>> {
             item = new Time();
             item.read("Enter item? ");
             while (item.compareTo(new Time(0, 0)) != 0) {
-                list.insert(item);
+                list.insert_to_begin(item);
                 item = new Time();
                 item.read("Enter item? ");
             }

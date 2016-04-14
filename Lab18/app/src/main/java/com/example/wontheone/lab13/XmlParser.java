@@ -7,6 +7,7 @@ import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,7 +49,7 @@ public class XmlParser {
         return players;
     }
 
-    public static class Player {
+    public static class Player implements Serializable {
         public final int id;
         public final String name;
         public Player(int id, String name) {

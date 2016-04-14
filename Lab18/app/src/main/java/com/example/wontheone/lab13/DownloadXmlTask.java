@@ -66,7 +66,6 @@ public class DownloadXmlTask extends AsyncTask<String, List<XmlParser.Player>, V
             values.put(MyProvider._ID, p.getId());
             values.put(MyProvider.NAME, p.getName());
             context.getContentResolver().insert(MyProvider.CONTENT_URI, values);
-            // Toast.makeText(getBaseContext(), uri.toString() + " inserted!", Toast.LENGTH_LONG).show();
         }
     }
 //    @Override
@@ -76,7 +75,7 @@ public class DownloadXmlTask extends AsyncTask<String, List<XmlParser.Player>, V
 //    }
     // Uploads XML, parses it, and combines it with
     // HTML markup. Returns HTML string.
-    private List<XmlParser.Player> loadXmlFromNetwork(String urlString) throws XmlPullParserException, IOException {
+    public List<XmlParser.Player> loadXmlFromNetwork(String urlString) throws XmlPullParserException, IOException {
         InputStream stream = null;
         // Instantiate the parser
         XmlParser xmlParser = new XmlParser();

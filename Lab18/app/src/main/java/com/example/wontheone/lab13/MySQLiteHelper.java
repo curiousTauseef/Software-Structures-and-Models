@@ -329,11 +329,11 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
 //                    KEY_PLAYERNAME + " text not null," +
 //                    KEY_PLAYER_Id + " integer primary key" +
 //                    ");";
-        for (int i = 0; i<pNames.length-1; i++)
-        {
-            DB.execSQL("INSERT INTO " + PLAYERS_TABLE_NAME + " (" + KEY_PLAYERNAME + ", "+ KEY_PLAYER_Id +") " +
-                    "Values ('" + pNames[i] + "', " + pIds[i] + ");");
-        }
+//        for (int i = 0; i<pNames.length-1; i++)
+//        {
+//            DB.execSQL("INSERT INTO " + PLAYERS_TABLE_NAME + " (" + KEY_PLAYERNAME + ", "+ KEY_PLAYER_Id +") " +
+//                    "Values ('" + pNames[i] + "', " + pIds[i] + ");");
+//        }
 
 //        if (dbExists) {
 //            // do nothing

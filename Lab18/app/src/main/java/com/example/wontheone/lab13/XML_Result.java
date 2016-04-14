@@ -5,6 +5,7 @@ import android.app.LoaderManager;
 import android.content.CursorLoader;
 import android.content.Intent;
 
+import android.content.IntentFilter;
 import android.content.Loader;
 import android.database.Cursor;
 
@@ -26,6 +27,7 @@ public class XML_Result extends AppCompatActivity implements MyObserver, LoaderM
 
     private ListView listView;
     SimpleCursorAdapter myAdapter;
+    private ResponseReceiver receiver;
 
     private static final String XML_SOURCE_URL = "http://users.metropolia.fi/~peterh/players.xml";
 
@@ -67,14 +69,18 @@ public class XML_Result extends AppCompatActivity implements MyObserver, LoaderM
          * IntentService. Passes a URI in the
          * Intent's "data" field.
          */
-
         Intent mServiceIntent = new Intent(this, XMLDownloadService.class);
-        mServiceIntent.putExtra("URL", XML_SOURCE_URL);
+        mServiceIntent.putExtra(XMLDownloadService.PARAM_IN_MSG, XML_SOURCE_URL);
         // Starts the IntentService
         // Once you call startService(), the IntentService does the work defined
         // in its onHandleIntent() method, and then stops itself.
         startService(mServiceIntent);
-
+        // Register the receiver in the onCreate() method with the appropriate intent filter
+        // to catch the specific result intent being sent from the IntentService.
+        IntentFilter filter = new IntentFilter(ResponseReceiver.ACTION_RESP);
+        filter.addCategory(Intent.CATEGORY_DEFAULT);
+        receiver = new ResponseReceiver();
+        registerReceiver(receiver, filter);
         //        DownloadXmlTask downloadTask = new DownloadXmlTask();
         //        downloadTask.register(this);
         //        downloadTask.execute(XML_SOURCE_URL);
@@ -216,4 +222,11 @@ public class XML_Result extends AppCompatActivity implements MyObserver, LoaderM
     }
     //  sometimes you want to discard your old data and start over.
     //  To discard your old data, you use restartLoader()
+
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        unregisterReceiver(receiver);
+    }
 }

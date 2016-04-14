@@ -32,7 +32,6 @@ public class MyProvider extends ContentProvider {
     // A provider appears externally as a set of tables, similar to a relational database,
     // but this is not a requirement for the provider's internal implementation.
     private SQLiteDatabase thisDB;
-
     // where the PROVIDER_NAME = "com.example.wontheone.lab20" string is the provider's authority,
     // and the 'players' string is the table's path
     // A provider usually has a single authority, which serves as its Android-internal name.
@@ -112,8 +111,25 @@ public class MyProvider extends ContentProvider {
     // The sync adapter can check for deleted rows and remove them from
     // the server before deleting them from the provider.
     public int delete(Uri uri, String selection, String[] selectionArgs) {
-        return 0;
+        int count = 0;
+        switch (uriMatcher.match(uri)){
+            case ALL_PLAYERS:
+                // delete all the records of the table
+                count = thisDB.delete(TABLE_NAME, selection, selectionArgs);
+                break;
+            case SINGLE_PLAYER:
+                String id = uri.getLastPathSegment(); //gets the id
+                count = thisDB.delete( TABLE_NAME, _ID +  " = " + id +
+                (!TextUtils.isEmpty(selection) ? " AND (" +
+                selection + ')' : ""), selectionArgs);
+                break;
+            default:
+                throw new IllegalArgumentException("Unsupported URI " + uri);
+        }
+        getContext().getContentResolver().notifyChange(uri, null);
+        return count;
     }
+
 
     // Return the MIME type corresponding to a content URI
     // The getType() method returns a String in MIME format that describes the type of data

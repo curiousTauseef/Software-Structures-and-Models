@@ -40,12 +40,12 @@ public class DownloadXmlTask extends AsyncTask<String, List<XmlParser.Player>, V
             while (true) {
                 Log.d("url", urls[0]);
                 try {
-                    Thread.sleep(6000);
+                    Thread.sleep(8000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
                 // xml_result.restartLoader();
-                23tgd context.getContentResolver().delete(MyProvider.CONTENT_URI, "", null);
+                context.getContentResolver().delete(MyProvider.CONTENT_URI, null, null);
                 publishProgress(loadXmlFromNetwork(urls[0]));
             }
         } catch (IOException e) {

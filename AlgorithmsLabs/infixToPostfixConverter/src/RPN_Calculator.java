@@ -19,7 +19,8 @@ public class RPN_Calculator {
             if (aChar.equals("+")) {
                 operandStack.push(operandStack.pop() + operandStack.pop());
             } else if (aChar.equals("-")) {
-                operandStack.push(operandStack.pop() - operandStack.pop());
+                operandStack.push(- operandStack.pop() + operandStack.pop()); 
+// extra care for the operation order, top one in the stack subtracts the second one in the stack
             } else if (aChar.equals("*")) {
                 operandStack.push(operandStack.pop() * operandStack.pop());
             } else if (aChar.equals("/")) {

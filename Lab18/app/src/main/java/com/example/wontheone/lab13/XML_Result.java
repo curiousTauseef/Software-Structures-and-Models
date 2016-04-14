@@ -9,6 +9,7 @@ import android.content.Loader;
 import android.database.Cursor;
 
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,14 +22,14 @@ import android.widget.SimpleCursorAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class XML_Result extends AppCompatActivity implements MyObserver, LoaderManager.LoaderCallbacks<Cursor>{
+public class XML_Result extends AppCompatActivity implements MyObserver, LoaderManager.LoaderCallbacks<Cursor> {
 
     private ListView listView;
     SimpleCursorAdapter myAdapter;
 
     private static final String XML_SOURCE_URL = "http://users.metropolia.fi/~peterh/players.xml";
 
-    static final String[] PROJECTION = new String[] { MySQLiteHelper.KEY_PLAYER_Id, MySQLiteHelper.KEY_PLAYERNAME};
+    static final String[] PROJECTION = new String[]{MySQLiteHelper.KEY_PLAYER_Id, MySQLiteHelper.KEY_PLAYERNAME};
     static final String SELECTION = "";
 
     public final PlayerListAdapter adapter = new PlayerListAdapter(this, new ArrayList<XmlParser.Player>());
@@ -41,10 +42,10 @@ public class XML_Result extends AppCompatActivity implements MyObserver, LoaderM
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_xml__result);
-        String[] fromColumns = {MySQLiteHelper.KEY_PLAYER_Id,MySQLiteHelper.KEY_PLAYERNAME};
+        String[] fromColumns = {MySQLiteHelper.KEY_PLAYER_Id, MySQLiteHelper.KEY_PLAYERNAME};
         int[] toViews = {android.R.id.text1, android.R.id.text2};
         myAdapter = new SimpleCursorAdapter(this, android.R.layout.simple_list_item_2, null, fromColumns, toViews, 0);
-        ListView lv = (ListView)findViewById(R.id.listView);
+        ListView lv = (ListView) findViewById(R.id.listView);
         lv.setAdapter(myAdapter);
         // A LoaderManager.LoaderCallbacks implementation, which the LoaderManager calls
         // to report loader events. In this example, the local class implements the
@@ -58,9 +59,25 @@ public class XML_Result extends AppCompatActivity implements MyObserver, LoaderM
         // The LoaderManager manages the life of the loader automatically.
         getLoaderManager().initLoader(0, null, this);
 
-        DownloadXmlTask downloadTask = new DownloadXmlTask();
-        downloadTask.register(this);
-        downloadTask.execute(XML_SOURCE_URL);
+        // To create a work request and send it to an IntentService, create an explicit Intent,
+        // add work request data to it, and send it to IntentService by calling startService().
+
+        /*
+         * Creates a new Intent to start the RSSPullService
+         * IntentService. Passes a URI in the
+         * Intent's "data" field.
+         */
+
+        Intent mServiceIntent = new Intent(this, XMLDownloadService.class);
+        mServiceIntent.putExtra("URL", XML_SOURCE_URL);
+        // Starts the IntentService
+        // Once you call startService(), the IntentService does the work defined
+        // in its onHandleIntent() method, and then stops itself.
+        startService(mServiceIntent);
+
+        //        DownloadXmlTask downloadTask = new DownloadXmlTask();
+        //        downloadTask.register(this);
+        //        downloadTask.execute(XML_SOURCE_URL);
 
         //        MySQLiteHelper dbHelper = new MySQLiteHelper(this.getApplicationContext());
         //        newDB = dbHelper.getWritableDatabase();
@@ -76,7 +93,7 @@ public class XML_Result extends AppCompatActivity implements MyObserver, LoaderM
         // listView.setAdapter(adapter);
     }
 
-    public void restartLoader(){
+    public void restartLoader() {
         getLoaderManager().restartLoader(0, null, this);
     }
 

@@ -24,6 +24,14 @@
         <provider
             android:name="MyProvider"
             android:authorities="com.example.wontheone.lab20.provider"></provider>
+        <service
+            android:name=".XMLDownloadService"
+            android:exported="false"/>
+        <!-- Notice that the <service> element doesn't contain an intent filter.
+        The Activity that sends work requests to the service uses an explicit Intent,
+        so no filter is needed. This also means that only
+        components in the same app or other applications
+        with the same user ID can access the service.-->
     </application>
 
 </manifest>

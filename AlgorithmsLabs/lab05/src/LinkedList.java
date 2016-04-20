@@ -22,13 +22,20 @@ public class LinkedList<T extends Comparable<T>> {
     }
 
     void delete_last() {
-        if (first == null)
+        if (first == null) {
+            System.out.println("not deleted");
             return;
+        }
         Node node = first;
-        while (node.next != null) {
+        if (first.next == null) {
+            first = null;
+            return;
+        }
+        while (node.next.next != null) {
             node = node.next;
         }
-        node = null;
+        node.next = null;
+        System.out.println(this);
     }
 
     int find_pos_in_list(T item) {
@@ -78,7 +85,6 @@ public class LinkedList<T extends Comparable<T>> {
             s.append(p.data + " ");
             p = p.next;
         }
-
         return s.toString();
     }
 

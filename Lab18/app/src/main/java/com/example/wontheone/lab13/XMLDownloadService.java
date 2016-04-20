@@ -1,6 +1,7 @@
 package com.example.wontheone.lab13;
 
 import android.app.IntentService;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.os.SystemClock;
 import android.text.format.DateFormat;
@@ -41,23 +42,31 @@ public class XMLDownloadService extends IntentService {
     protected void onHandleIntent(Intent intent) {
         // Gets data from the incoming Intent
         while (true)
-        try {
-            ArrayList<XmlParser.Player> players = (ArrayList) loadXmlFromNetwork(intent.getStringExtra(PARAM_IN_MSG));
-            Log.d(TAG, "onHandleIntent: ");
-            // processing done here….
-            // To send the result back to the main application, we package up another intent,
-            // stick the result data in as an extra, and blast it back using the sendBroadcast() method.
-            Intent broadcastIntent = new Intent()
-                    .setAction(ResponseReceiver.ACTION_RESP)
-                    .addCategory(Intent.CATEGORY_DEFAULT)
-                    .putExtra(PARAM_OUT_MSG, players);
-            sendBroadcast(broadcastIntent); // Intent is broadcasted here
-            SystemClock.sleep(5000); // 5 seconds wait
-        } catch (XmlPullParserException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+            try {
+                ArrayList<XmlParser.Player> players = (ArrayList) loadXmlFromNetwork(intent.getStringExtra(PARAM_IN_MSG));
+                Log.d(TAG, "onHandleIntent: ");
+                // processing done here….
+                // To send the result back to the main application, we package up another intent,
+                // stick the result data in as an extra, and blast it back using the sendBroadcast() method.
+
+                getApplicationContext().getContentResolver().delete(MyProvider.CONTENT_URI, null, null);
+                for (XmlParser.Player p : players){
+                    ContentValues values = new ContentValues();
+                    values.put(MyProvider._ID, p.getId());
+                    values.put(MyProvider.NAME, p.getName());
+                    getContentResolver().insert(MyProvider.CONTENT_URI, values);
+                }
+//                Intent broadcastIntent = new Intent()
+//                        .setAction(ResponseReceiver.ACTION_RESP)
+//                        .addCategory(Intent.CATEGORY_DEFAULT)
+//                        .putExtra(PARAM_OUT_MSG, players);
+//                sendBroadcast(broadcastIntent); // Intent is broadcasted here
+                SystemClock.sleep(10000); // 5 seconds wait
+            } catch (XmlPullParserException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
     }
     // Notice that the other callbacks of a regular Service component,

@@ -24,7 +24,7 @@ public class ResponseReceiver extends BroadcastReceiver {
                 (ArrayList<XmlParser.Player>) intent.getSerializableExtra(XMLDownloadService.PARAM_OUT_MSG);
         // result.setText(text);
         // delete old data (like this?)
-        context.getContentResolver().delete(MyProvider.CONTENT_URI, null, null);
+        context.getApplicationContext().getContentResolver().delete(MyProvider.CONTENT_URI, null, null);
         for (XmlParser.Player p : players){
             ContentValues values = new ContentValues();
             values.put(MyProvider._ID, p.getId());

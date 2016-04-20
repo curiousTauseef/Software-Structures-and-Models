@@ -2,6 +2,7 @@ package com.example.wontheone.lab13;
 
 
 import android.app.LoaderManager;
+import android.content.Context;
 import android.content.CursorLoader;
 import android.content.Intent;
 
@@ -148,6 +149,7 @@ public class XML_Result extends AppCompatActivity implements MyObserver, LoaderM
 
     private void openAddPlayerActivity() {
         Intent openAddPlayerIntent = new Intent(this, AddPlayerActivity.class);
+        // openAddPlayerIntent.putExtra("context", (Context) this);
         startActivity(openAddPlayerIntent);
     }
 
@@ -224,9 +226,9 @@ public class XML_Result extends AppCompatActivity implements MyObserver, LoaderM
     //  To discard your old data, you use restartLoader()
 
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        unregisterReceiver(receiver);
-    }
+//    @Override
+//    protected void onPause() {
+//        unregisterReceiver(receiver);
+//        super.onPause();
+//    }
 }

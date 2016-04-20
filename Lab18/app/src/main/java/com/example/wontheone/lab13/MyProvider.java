@@ -180,11 +180,10 @@ public class MyProvider extends ContentProvider {
         thisDB = dbHelper.getWritableDatabase();
         // TODO Auto-generated method stub
         long row = thisDB.insert(TABLE_NAME, "", values);
-
         // If record is added successfully
         if(row > 0) {
             Uri newUri = ContentUris.withAppendedId(CONTENT_URI, row);
-            getContext().getContentResolver().notifyChange(newUri, null);
+            getContext().getApplicationContext().getContentResolver().notifyChange(newUri, null);
             return newUri;
         }
         Log.d("Debug","Fail to add a new record into ");

@@ -1,6 +1,7 @@
 package com.example.wontheone.lab13;
 
 import android.content.ContentValues;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
@@ -36,7 +37,9 @@ public class AddPlayerActivity extends AppCompatActivity {
                 ContentValues values = new ContentValues();
                 values.put(MyProvider._ID, newId.getText().toString());
                 values.put(MyProvider.NAME, newName.getText().toString());
-                Uri uri = getContentResolver().insert(MyProvider.CONTENT_URI, values);
+                Intent intent = getIntent();
+
+                Uri uri = getApplicationContext().getContentResolver().insert(MyProvider.CONTENT_URI, values);
                 Toast.makeText(getBaseContext(),
                         uri.toString() + " inserted!", Toast.LENGTH_LONG).show();
 //                dbHelper.insert(newDB, new XmlParser.Player(Integer.parseInt(newId.getText().toString()),

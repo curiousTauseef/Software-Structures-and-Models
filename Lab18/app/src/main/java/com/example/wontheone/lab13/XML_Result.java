@@ -70,32 +70,32 @@ public class XML_Result extends AppCompatActivity implements MyObserver, LoaderM
          * IntentService. Passes a URI in the
          * Intent's "data" field.
          */
-        Intent mServiceIntent = new Intent(this, XMLDownloadService.class);
-        mServiceIntent.putExtra(XMLDownloadService.PARAM_IN_MSG, XML_SOURCE_URL);
-        // Starts the IntentService
-        // Once you call startService(), the IntentService does the work defined
-        // in its onHandleIntent() method, and then stops itself.
-        startService(mServiceIntent);
-        // Register the receiver in the onCreate() method with the appropriate intent filter
-        // to catch the specific result intent being sent from the IntentService.
-        IntentFilter filter = new IntentFilter(ResponseReceiver.ACTION_RESP);
-        filter.addCategory(Intent.CATEGORY_DEFAULT);
-        receiver = new ResponseReceiver();
-        registerReceiver(receiver, filter);
-        //        DownloadXmlTask downloadTask = new DownloadXmlTask();
-        //        downloadTask.register(this);
-        //        downloadTask.execute(XML_SOURCE_URL);
+//        Intent mServiceIntent = new Intent(this, XMLDownloadService.class);
+//        mServiceIntent.putExtra(XMLDownloadService.PARAM_IN_MSG, XML_SOURCE_URL);
+//        // Starts the IntentService
+//        // Once you call startService(), the IntentService does the work defined
+//        // in its onHandleIntent() method, and then stops itself.
+//        startService(mServiceIntent);
+//        // Register the receiver in the onCreate() method with the appropriate intent filter
+//        // to catch the specific result intent being sent from the IntentService.
+//        IntentFilter filter = new IntentFilter(ResponseReceiver.ACTION_RESP);
+//        filter.addCategory(Intent.CATEGORY_DEFAULT);
+//        receiver = new ResponseReceiver();
+//        registerReceiver(receiver, filter);
+                DownloadXmlTask downloadTask = new DownloadXmlTask();
+                downloadTask.register(this);
+                downloadTask.execute(XML_SOURCE_URL);
 
-        //        MySQLiteHelper dbHelper = new MySQLiteHelper(this.getApplicationContext());
-        //        newDB = dbHelper.getWritableDatabase();
-        //
-        //        Select = "SELECT " + MySQLiteHelper.KEY_PLAYERNAME + ", " + MySQLiteHelper.KEY_PLAYER_Id
-        //                + " FROM " + MySQLiteHelper.PLAYERS_TABLE_NAME + " ";
-        //        // Register as observer
-        //        players = new ArrayList<>();
-        //        Model.getInstance().register(this);
+                MySQLiteHelper dbHelper = new MySQLiteHelper(this.getApplicationContext());
+                newDB = dbHelper.getWritableDatabase();
 
-        // getData();
+                Select = "SELECT " + MySQLiteHelper.KEY_PLAYERNAME + ", " + MySQLiteHelper.KEY_PLAYER_Id
+                        + " FROM " + MySQLiteHelper.PLAYERS_TABLE_NAME + " ";
+                // Register as observer
+                players = new ArrayList<>();
+                Model.getInstance().register(this);
+
+         getData();
         // ListView listView = (ListView) findViewById(R.id.listView);
         // listView.setAdapter(adapter);
     }

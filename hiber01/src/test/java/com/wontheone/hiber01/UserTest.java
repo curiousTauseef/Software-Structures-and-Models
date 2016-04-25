@@ -22,7 +22,7 @@ public class UserTest extends MoonshineTest {
 	@Test
 	@Transactional
 	public void shouldStoreUser() {
-		User user = new User();
+		Person user = new Person();
 		user.setName("Test Name");
 
 		entityManager.persist(user);

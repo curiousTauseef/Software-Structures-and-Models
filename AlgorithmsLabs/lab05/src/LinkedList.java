@@ -43,6 +43,8 @@ public class LinkedList<T extends Comparable<T>> {
         int i = 0;
         while (node.data != item) {
             node = node.next;
+            if (node == null)
+                return -1;
             i++;
         }
         return i;
